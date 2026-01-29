@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PM Domain Opener</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 20px;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1e4ed8;
+    }
+
+    #links {
+      margin-top: 20px;
+      list-style: none;
+      padding: 0;
+    }
+
+    #links a {
+      display: block;
+      padding: 10px;
+      margin-bottom: 8px;
+      background: white;
+      border-radius: 6px;
+      text-decoration: none;
+      color: #2563eb;
+      border: 1px solid #e5e7eb;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    #links a:hover {
+      background: #eef2ff;
+    }
+
+    #links a.clicked {
+      color: #ea580c;
+      background: #fff7ed;
+      border-color: #fdba74;
+    }
+  </style>
+</head>
+
+<body>
+
+<h2>Bulk Domain Launcher</h2>
+
+<textarea id="params" placeholder="Enter domains, one per line"></textarea>
+
+<button onclick="launchLinks()">Launch</button>
+
+<ul id="links"></ul>
+
+<script>
+  function launchLinks() {
+    const paramsText = document.getElementById("params").value.trim();
+    const params = paramsText.split("\n");
+
+    let html = "";
+
+    params.forEach(param => {
+      const cleanParam = param.trim();
+      if (cleanParam) {
+        html += `
+          <a href="https://postmaster.google.com/dashboards#do=${encodeURIComponent(cleanParam)}&st=domainReputation&dr=7"
+             target="_blank"
+             onclick="markClicked(this)">
+             ${cleanParam}
+          </a>
+        `;
+      }
+    });
+
+    document.getElementById("links").innerHTML = html;
+  }
+
+  function markClicked(link) {
+    link.classList.add("clicked");
+
+    // remove color after 2 seconds
+    setTimeout(() => {
+      link.classList.remove("clicked");
+    }, 2000);
+  }
+</script>
+
+</body>
+</html>
